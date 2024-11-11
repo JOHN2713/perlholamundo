@@ -1,6 +1,9 @@
 # Usa una imagen base de Perl
 FROM perl:latest
 
+# Instala el módulo CGI
+RUN cpan install CGI
+
 # Establece el directorio de trabajo
 WORKDIR /usr/src/app
 
