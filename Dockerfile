@@ -1,20 +1,17 @@
-# Usa una imagen base de Perl
-FROM perl:latest
+# Use the official Perl base image
+FROM perl:5.32
 
-# Instala el módulo CGI
-RUN cpan install CGI
+# Install HTTP::Server::Simple module
+RUN cpan HTTP::Server::Simple
 
-# Establece el directorio de trabajo
-WORKDIR /usr/src/app
+# Set the working directory
+WORKDIR /app
 
-# Copia el archivo Perl al contenedor
+# Copy the Perl script to the container
 COPY app.pl .
 
-# Asegúrate de que el archivo es ejecutable
-RUN chmod +x app.pl
-
-# Expón el puerto 8080
+# Expose the port used by the server
 EXPOSE 8080
 
-# Inicia el servidor web para la app
+# Run the Perl HTTP server
 CMD ["perl", "app.pl"]
