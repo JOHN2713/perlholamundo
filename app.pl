@@ -1,7 +1,23 @@
 # app.pl
 use strict;
 use warnings;
-use CGI;
+use HTTP::Server::Simple::CGI;
 
-print "Content-Type: text/html\n\n";
-print "<h1>Hola Mundo desde Perl!</h1>";
+{
+    package MyWebServer;
+    use base qw(HTTP::Server::Simple::CGI);
+    my $html_response = "<h1>Hola Mundo desde Perl!</h1>";
+
+    sub handle_request {
+        my ($self, $cgi) = @_;
+        print "HTTP/1.0 200 OK\r\n";
+        print "Content-Type: text/html\r\n\r\n";
+        print $html_response;
+    }
+}
+
+# Puerto que Railway suele escuchar
+my $port = $ENV{PORT} || 3000;
+my $server = MyWebServer->new($port);
+print "Server running on port $port...\n";
+$server->run();

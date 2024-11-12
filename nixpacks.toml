@@ -1,2 +1,8 @@
 [phases.setup]
-apt_pkgs = ["perl", "perl-cgi"]
+apt_pkgs = ["perl", "libhttp-server-simple-perl"]
+
+[phases.build]
+# No es necesario compilar
+
+[phases.start]
+run = "perl app.pl"
